@@ -1,3 +1,4 @@
-# My Awesome Book
+# My Studying Blog
 
-This file file serves as your book's preface, a great place to describe your book's content and ideas.
+刚入职菜鸟的学习之路，一些学习内容总结的总结思考，个人理解如有错误，希望积极指出！
+
