@@ -48,7 +48,7 @@ errorCaptured  ------------------------------------  onErrorCaptured
 | renderTracked | onRenderTracked |
 | renderTriggered | onRenderTriggered |
 
-### TIP
+### TIP：
 
 因为 `setup` 是围绕 `beforeCreate` 和 `created` 生命周期钩子运行的，所以不需要显式地定义它们。换句话说，在这些钩子中编写的任何代码都应该直接在 `setup` 函数中编写,这些函数接受一个回调函数，当钩子被组件调用时将会被执行.
 
@@ -173,7 +173,7 @@ setup功能是新的组件选项。它是组件内部暴露出所有的属性和
 
 ##### 注意：1.不要在子组件中修改props；如果你尝试修改，将会给你警告甚至报错。
 
-#####             2.不要解构props。解构的props会失去响应性。
+##### 2.不要解构props。解构的props会失去响应性。
 
 #### 2.**上下文对象**
 
@@ -227,6 +227,4 @@ export default {
 setup内部定义的变量和外表的变量并无冲突；
 
 但是如果你要将其return 暴露给template,那么就会产生冲突。
-
-
 
