@@ -1,4 +1,4 @@
-# 第一节 Vue3.0的生命周期
+# Vue3.0的生命周期
 
 ## 一、vue2.0到vue3.0中生命周期的变化
 
@@ -67,6 +67,37 @@ errorCaptured  ------------------------------------  onErrorCaptured
 
     })
 ```
+
+### watchEffect
+
+#### 既然在上面提到了watchEffect就在此补充一下watchEffect
+
+watchEffect官方的解释为”传入一个函数，并且立即执行，响应式追踪其依赖，并在其依赖变更时重新运行该函数。“
+
+#### 注册监听：
+
+```
+import {watchEffect} from 'vue' //导入api
+const count = ref(0) //定义响应数据
+watchEffect(() => console.log(count.value)) //注册监听函数
+//打印出0
+setTimeout(() => {
+    count.value++
+    //打印出1
+},1000)
+```
+
+#### 注销监听：
+
+```
+const stop = watchEffect(() => {
+    //需要监听的内容
+})
+//之后
+stop()
+```
+
+默认情况下在”组件卸载“的时候停止监听，也可以显式地”调用返回值“以停止监听
 
 ### 基本例子：
 
@@ -227,4 +258,6 @@ export default {
 setup内部定义的变量和外表的变量并无冲突；
 
 但是如果你要将其return 暴露给template,那么就会产生冲突。
+
+
 
