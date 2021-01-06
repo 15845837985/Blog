@@ -54,19 +54,19 @@ TIP
 
 其中onRenderTracked和onRenderTriggered是vue3.0中新增加的生命周期函数，两个钩子函数都接收一个DebuggerEvent，与 watchEffect 参数选项中的 onTrack 和 onTrigger 类似：
 
-        onRenderTracked\(\(e\)=&gt;{
+```
+    onRenderTracked((e)=>{
+    
+      debugger //当一个 reactive对象属性或一个ref被追踪时触发
 
-          debugger //当一个 reactive对象属性或一个ref被追踪时触发
+    })
 
-        }\)
+    onRenderTriggered((e)=>{
 
+     debugger // 依赖项变更被触发时 检查哪个依赖性导致组件重新渲染
 
-
-        onRenderTriggered\(\(e\)=&gt;{
-
-         debugger // 依赖项变更被触发时 检查哪个依赖性导致组件重新渲染
-
-        }\)
+    })
+```
 
 结合下面这段代码进行分析：
 
@@ -88,8 +88,7 @@ export default {
     let count = ref(0)
     let count2=ref(2);
     let name = ref('vue 2.x')
-    const obj=reactive({sex:'male'})
-    const robj=readonly(obj); 
+    const obj=reactive({sex:'male'}) 
 
     onMounted(()=>{
       console.log('挂载后');
