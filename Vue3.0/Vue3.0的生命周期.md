@@ -56,7 +56,7 @@ TIP
 
 ```
     onRenderTracked((e)=>{
-    
+
       debugger //当一个 reactive对象属性或一个ref被追踪时触发
 
     })
@@ -89,9 +89,23 @@ export default {
     let count2=ref(2);
     let name = ref('vue 2.x')
     const obj=reactive({sex:'male'}) 
+    const inc = () => {
 
+       count.value++;
+       name.value='vue 3.x'
+
+    }
+    onBeforeMounted(()=>{
+      console.log('挂载前')
+    })
     onMounted(()=>{
       console.log('挂载后');
+    })
+    onBeforeUpdate(()=>{
+      console.log('更新前')
+    })
+    onUpdated(()=>{
+      console.log('更新后')
     })
     onRenderTracked((e)=>{
       console.log(e)
@@ -100,12 +114,6 @@ export default {
       console.log(e);
     })
 
-    const inc = () => {
-
-       count.value++;
-       name.value='vue 3.x'
-
-    }
 
     return {
       count,
