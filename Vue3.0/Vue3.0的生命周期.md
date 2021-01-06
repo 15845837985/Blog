@@ -84,7 +84,7 @@ TIP
 import { ref,reactive,computed,watchEffect,watch,onMounted, onUpdated, onUnmounted,onRenderTracked,onRenderTriggered } from 'vue'
 
 export default {
-  setup() { //作用相当于vue2.x中的beforeCreate和created，在vue3.x中其他钩子函数需要在setup()内使用
+  setup() { //作用相当于vue2.x中的beforeCreate和created
     let count = ref(0)
     let count2=ref(2);
     let name = ref('vue 2.x')
