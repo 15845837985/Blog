@@ -50,25 +50,82 @@ errorCaptured  ------------------------------------------------------------  onE
 
 TIP
 
-因为 `setup` 是围绕 `beforeCreate` 和 `created` 生命周期钩子运行的，所以不需要显式地定义它们。换句话说，在这些钩子中编写的任何代码都应该直接在 `setup` 函数中编写。（上面表格中后五个钩子我接触较少，如果有误欢迎补充）
+因为 `setup` 是围绕 `beforeCreate` 和 `created` 生命周期钩子运行的，所以不需要显式地定义它们。换句话说，在这些钩子中编写的任何代码都应该直接在 `setup` 函数中编写,这些函数接受一个回调函数，当钩子被组件调用时将会被执行.
 
-这些函数接受一个回调函数，当钩子被组件调用时将会被执行:
+其中onRenderTracked和onRenderTriggered是vue3.0中新增加的生命周期函数
+
+onRenderTracked\(\(e\)=&gt;{
+
+当一个 reactive对象属性或一个ref被追踪时触发
+
+}\)
+
+onRenderTriggered\(\(e\)=&gt;{
+
+依赖项变更被触发时
+
+}\)
+
+结合下面这段代码进行分析：
 
 ```
+<template>
+  <div>
+    <h1>Hello Vue 3!</h1>
+    {{name}}{{obj.sex}}
+    <button @click="inc">Clicked {{ count }} times.</button>
+  </div>
 
-// MyBook.vue
- 
+</template>
+
+<script>
+import { ref,reactive,computed,readonly,watchEffect,watch,onMounted, onUpdated, onUnmounted,onRenderTracked,onRenderTriggered } from 'vue'
+
 export default {
   setup() {
-    // mounted
-    onMounted(() => {
-      console.log('Component is mounted!')
+    let count = ref(0)
+    let count2=ref(2);
+    let name = ref('jeff')
+    const obj=reactive({sex:'male'})
+    const robj=readonly(obj); 
+    let timer;
+
+    let r=readonly('aa') //不具有只读的能力
+
+    onMounted(()=>{
+      console.log('挂载后');
     })
+    onRenderTracked((e)=>{
+      console.log(e)
+    })
+    onRenderTriggered((e)=>{
+      console.log(e);
+    })
+
+    const inc = () => {
+
+       count.value++;
+       name.value='jak'
+
+    }
+
+    return {
+      count,
+      inc,
+      name, //在setup返回对象中自动解套
+      obj
+    }
   }
 }
+</script>
+
+<style scoped>
+
+h1 {
+  font-family: Arial, Helvetica, sans-serif;
+}
+</style>
 ```
-
-
 
 
 
