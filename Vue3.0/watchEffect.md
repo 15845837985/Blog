@@ -108,5 +108,71 @@ watchEffect(
 )
 ```
 
+## 例子：
+
+```
+<template>
+  <div>
+    <h1>Hello Vue 3!</h1>
+    {{name}}{{obj.sex}}
+    <button @click="inc">Clicked {{ count }} times.</button>
+  </div>
+</template>
+
+<script>
+import { ref,reactive,computed,readonly,watchEffect } from 'vue'
+export default {
+  setup() {
+    let count = ref(0)
+    let res=1;
+    let name = ref('jeff')
+    let timer
+    const obj=reactive({sex:'male'})
+    const robj=readonly(obj); 
+    let r=readonly('aa') //不具有只读的能力
+    watchEffect((onInvalidate)=>{
+      console.log(count.value);
+      onInvalidate(()=>{
+        console.log('清除');
+        clearInterval(timer);
+      })
+
+    },  {
+    onTrigger(e) {
+      console.log(e);
+    },
+    onTrack(e)
+    {
+      console.log('triger');
+      console.log(e)
+    }
+  })    
+    const inc = () => {
+
+      timer=setInterval(()=>{
+        count.value++;
+      },1000)
+
+    }
+    return {
+      count,
+      inc,
+      name, //在setup返回对象中自动解套
+      obj
+    }
+  }
+}
+</script>
+
+<style scoped>
+img {
+  width: 200px;
+}
+h1 {
+  font-family: Arial, Helvetica, sans-serif;
+}
+</style>
+```
+
 
 
