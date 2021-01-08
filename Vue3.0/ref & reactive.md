@@ -27,13 +27,20 @@ const obj = reactive({ count: 0 })
 ```
 <template>
   <div>{{ count }}</div>
+  <button @click="add">点我</button>
 </template>
 <script>
+import {ref} from "vue";
+
   export default {
     setup() {
-      return {
         const count = ref(0)
-        count: count, // 而不是 count.value
+        const add = () => {
+            count.value++
+        }
+      return {
+         count,
+         add
       }
     },
   }
