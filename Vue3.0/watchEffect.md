@@ -15,6 +15,9 @@ setTimeout(() => {
     count.value++
     //打印出1
 },1000)
+console.log("计时器外输出count.value", count.value); //打印出0
+//执行顺序为watchedEffect中的console.log第一，计时器外的console.log第二，计时器执行后watchEffect监听到的console.log第三
+
 ```
 
 ## 注销监听：
