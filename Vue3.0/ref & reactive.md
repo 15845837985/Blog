@@ -85,6 +85,12 @@ export default {
 注意当嵌套在 reactive Object 中时，ref 才会解套。从 Array 或者 Map 等原生集合类中访问 ref 时，不会自动解套。
 
 ```
+const shoes = reactive({
+      price:ref(0),
+      num: ref(1)
+      });
+// 这里不需要 .value
+console.log(shoes.num);
 const arr = reactive([ref(0)])
 // 这里需要 .value
 console.log(arr[0].value)
