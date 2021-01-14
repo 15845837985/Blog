@@ -28,5 +28,51 @@ plusOne.value = 1
 console.log(count.value) // 0
 ```
 
+## 例子：
+
+    <template>
+      <p>{{ counter }}</p>
+      <p>{{ doubleCounter }}</p>
+      <p>{{ msg }}</p>
+      <p ref="desc"></p>
+    </template>
+
+    <script>
+    import { computed, onUnmounted, reactive, onMounted, ref, toRefs, watch} from "vue";
+    export default {
+      setup() {
+        const { counter, doubleCounter } = useCounter();
+        const msg = ref("seconds");
+        const desc = ref(null);
+        watch(counter, (val, oldVal) => {
+          const p = desc.value;
+          p.textContent = `counter from ${oldVal} to ${val}`;
+        });
+
+        return { counter, doubleCounter, msg, desc };
+      },
+    };
+    function useCounter() {
+      const data = reactive({
+        counter: 1,
+        doubleCounter: computed(() => data.counter * 2),
+      });
+
+      let timer;
+
+      onMounted(() => {
+        timer = setInterval(() => {
+          data.counter++;
+        }, 1000);
+      });
+
+      onUnmounted(() => {
+        clearInterval(timer);
+      });
+
+      return toRefs(data);
+    }
+    </script>
+
 
 
