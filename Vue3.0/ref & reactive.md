@@ -18,7 +18,10 @@ console.log(count.value) // 1
 
 ```
 import { reactive } from 'vue'
-const obj = reactive({ count: 0 })
+const obj = reactive({ 
+  count: 0，
+  value：999
+})
 ```
 
 ## TIP:
