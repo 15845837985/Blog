@@ -14,5 +14,20 @@ const app = createApp({})
     .mount('#app')
 ```
 
+列举如下：
 
+| 2.x Global API | 3.x Instance API \(app\) |
+| :--- | :--- |
+| Vue.config | app.config |
+| Vue.config.productionTip | removed |
+| Vue.config.ignoredElements | app.config.isCustomElement |
+| Vue.component | app.component |
+| Vue.directive | app.directive |
+| Vue.mixin | app.mixin |
+| Vue.use | app.use |
+| Vue.filter | removed |
+
+TIP:
+
+这些内容我在平时用的不算很多，具体列出在上表，有疑问的小伙伴可以自己查询一下官方文档
 
