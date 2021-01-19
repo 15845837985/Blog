@@ -46,6 +46,50 @@ age = 10;
 
 TypeScript兼容JavScript的所有数据类型：string、 number、 boolean、 null、 undefined、 Symbol
 
+除此之外还包括数组类型（array）、元组类型（tuple）、枚举类型（enum）、任意类型（any）、void类型、never类型...
+
+### array：
+
+```
+let arr1:number[] = [1,2,3,4];
+let arr2:Array<number> = [11,22,33]
+```
+
+### tuple：
+
+```
+let arr:[string,number,boolean] = ["ts",1,true]
+```
+
+##### 元组属于数组的一种
+
+### enum：
+
+在其他程序设计语言中，一般用一个数值来代表一种状态，这种方法不直观，易读性差。如果能在程序中用自然语言中有相应含义的单词来表达某一状态，则程序就会容易阅读和理解。也就是说，是先考虑某一变量可能的取值，并尽量用自然语言中的含义解释每一个值，这种方法称为枚举法，用这种方法定义的类型称为枚举类型
+
+定义方式：
+
+enum 枚举名{
+
+    标识符\[=整型常数\]，
+
+    标识符\[=整型常数\]，
+
+    ...
+
+    标识符\[=整型常数\]，
+
+};
+
+```
+enum Flag {
+success=1, 
+error=-1
+};
+let f:Flag=Flag.success
+console.log(f); //输出1
+```
+
 ### undefined与null：
 
 JavScript中                                                                        TypeScript中
