@@ -71,13 +71,15 @@ let arr:[string,number,boolean] = ["ts",1,true]
 
 enum 枚举名{
 
-    标识符\[=整型常数\]，
+```
+标识符\[=整型常数\]，
 
-    标识符\[=整型常数\]，
+标识符\[=整型常数\]，
 
-    ...
+...
 
-    标识符\[=整型常数\]，
+标识符\[=整型常数\]，
+```
 
 };
 
@@ -88,6 +90,16 @@ error=-1
 };
 let f:Flag=Flag.success
 console.log(f); //输出1
+```
+
+```
+enum Color {red,blue=5,orange}
+var a:Color=Color.red;
+var b:Color=Color.blue;
+var c:Color=Color.orange;
+console.log(a); //未赋值输出索引值
+console.log(b); //输出5
+console.log(c); //输出6， 根据最近的已赋值元素计算
 ```
 
 ### undefined与null：
