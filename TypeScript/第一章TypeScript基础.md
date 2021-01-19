@@ -91,7 +91,7 @@ let f:Flag=Flag.success
 console.log(f); //输出1
 ```
 
-tip:
+##### tip:
 
 ```
 enum Color {red,blue=5,orange}
@@ -152,6 +152,31 @@ v1 = {
     name: "lisi",
     age: 1
 }
+```
+
+### void：
+
+void用于表示函数返回值为void，没有返回任何类型
+
+```
+function run():void{
+    console.log('run')
+}
+
+run();
+```
+
+### never:
+
+never是其他类型（包括 null 和 undefined）的子类型，代表从不会出现的值。
+
+意味着声明never的变量只能被never类型所赋值。
+
+```
+let x:never;
+x = (() => {
+    throw new Error('This is an error')
+})()
 ```
 
 ## TypeScript函数：
