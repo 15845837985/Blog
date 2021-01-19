@@ -68,6 +68,35 @@ let a2: null = null;
 // a2 = "null"   报错
 ```
 
+### 联合类型：
+
+let 变量名： 数据类型1 \| 数据类型2 \|  ...；      变量的值可以是几种类型中的任意一种
+
+```
+let result: string | number;
+result = 1;
+console.log("resulet = " + result);
+result = "zhangsan"
+console.log("resulet = " + result);
+// result = true
+```
+
+### any:
+
+any类型的变量，可以存储任意类型的数据
+
+```
+let v1: any;
+v1 = 1;
+v1 = "lisi";
+v1 = true;
+v1 = [10, 20, 30];
+v1 = {
+    name: "lisi",
+    age: 1
+}
+```
+
 ## TypeScript函数：
 
 
