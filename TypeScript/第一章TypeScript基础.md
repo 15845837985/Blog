@@ -91,6 +91,8 @@ let f:Flag=Flag.success
 console.log(f); //输出1
 ```
 
+tip:
+
 ```
 enum Color {red,blue=5,orange}
 var a:Color=Color.red;
