@@ -2,6 +2,8 @@
 
 TypeScript是JavaScript的超集，包含ES5、ES6、ES7。同时，也新增加了一些语法，比如关于类型和面向对象的语法。
 
+这部分内容中会包含一些ES5、ES6中的使用方法以及TypeScript中的使用方法以供对比参照。
+
 ## TypeScript环境安装：
 
 安装：
