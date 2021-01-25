@@ -187,5 +187,107 @@ var http = new HttpClient();
 http.getData(1, 2, true);  // getData: ["1", "2", "true"]
 ```
 
+## 方法参数装饰器：
+
+参数装饰器表达式会在运行时被调用，可以为类的原型增加一些元素数据，传入3个参数：
+
+1. 对于静态成员来说是类的构造函数，对于实例成员来说是类的原型对象
+2. **方法名称**，如果装饰的是构造函数的参数，则值为`undefined`
+3. 参数在函数参数列表中的索引；
+
+```
+function logParams(params:any) {
+    console.log(params)  // 装饰器传入的参数：uuid
+    return function(target:any, methodName:any, paramIndex:any) {
+        console.log(target)  // { constructor:f, getData:f } 
+        console.log(methodName)  // getData
+        console.log(paramIndex)  // 0
+    }
+}
+class HttpClient {
+    constructor() { }
+    getData(@logParams('uuid') uuid:any) {
+        console.log(uuid);
+    }
+}
+```
+
+注意：
+
+* 参数装饰器只能用来监视一个方法的参数是否被传入；
+* 参数装饰器在`Angular`中被广泛使用,特别是结合`reflect-metadata`库来支持实验性的`Metadata API`
+* 参数装饰器的返回值会被忽略。
+
+## 装饰器的执行顺序：
+
+装饰器组合：TS支持多个装饰器同时装饰到一个声明上，语法支持从左到右，或从上到下书写；
+
+```
+@f @g x
+
+@f
+@g
+x
+```
+
+在TypeScript里，当多个装饰器应用在一个声明上时会进行如下步骤的操作：
+
+1. 由上至下依次对装饰器表达式求值;
+2. 求值的结果会被当作函数，由下至上依次调用.
+
+不同装饰器的执行顺序：属性装饰器 &gt;方法装饰器 &gt;参数装饰器 &gt;类装饰器
+
+```
+function logClz11(params:string) {
+    return function(target:any) {
+        console.log('logClz11')
+    }
+}
+function logClz22(params?:string) {
+    return function(target:any) {
+        console.log('logClz22')
+    }
+}
+function logAttr(params?:string) {
+    return function(target:any, attrName:any) {
+        console.log('logAttr')
+    }
+}
+function logMethod(params?:string) {
+    return function(target:any, methodName:any, desc:any) {
+        console.log('logMethod')
+    }
+}
+function logParam11(params?:any) {
+    return function(target:any, methodName:any, paramIndex:any) {
+        console.log('logParam11')
+    }
+}
+function logParam22(params?:any) {
+    return function(target:any, methodName:any, paramIndex:any) {
+        console.log('logParam22')
+    }
+}
+
+@logClz11('http://baidu.com')
+@logClz22()
+class HttpClient {
+    @logAttr()
+    public url:string|undefined;
+
+    constructor() { }
+
+    @logMethod()
+    getData() {
+        console.log('get data');
+    }
+
+    setData(@logParam11() param1:any, @logParam22() param2:any) {
+        console.log('set data');
+    }
+}
+// logAttr --> logMethod --> logParam22 --> logParam11 --> logClz22 --> logClz11
+```
+
 
 
