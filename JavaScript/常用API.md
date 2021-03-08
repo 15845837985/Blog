@@ -56,5 +56,70 @@ doucument.write(arr);
 
 Tip:结合push\(\)方法和pop\(\)方法我们便可以用数组模拟栈的数据结构（先进后出）
 
+5.reverse\(\)：颠倒数组中元素的顺序（**reverse\(\)会修改数组**）
+
+```
+var arr1 = new Array(3);
+  arr1[0] = "James";
+  arr1[1] = "Davis";
+  arr1[2] = "Kuzma";
+doucument.write(arr1);
+```
+
+6.shift\(\)：把数组的第一个元素删除（shift\(\)会修改数组），并返回第一个元素的值（数组原来的第一个元素，即被删除的元素），如果数组是空的，那么shift方法不进行任何操作，返回undefined
+
+```
+var arr1 = new Array(3);
+  arr1[0] = "James";
+  arr1[1] = "Davis";
+  arr1[2] = "Kuzma";
+aler(arr1.shift())
+doucument.write(arr1);
+```
+
+7.slice\(\)：从已有数组中返回选定的元素（不会修改数组只是返回一个子数组），参数（start，end），其中start必填规定从何处开始选取。如果是负数则从数组尾部开始算起，即-1为最后一个元素，-2为倒数第二个元素以此类推。end为可选参数，规定从何处结束选取，如果没有指定该参数那么切分的数组包含从start到数组结束的所有元素，如果是负数，规定的是从数组尾部开始算起的元素。
+
+```
+var arr1 = new Array(3);
+  arr1[0] = "James";
+  arr1[1] = "Davis";
+  arr1[2] = "Kuzma";
+alert(arr1.slice(1));
+document.write(arr1 + "<br />");
+var arr2 = new Array(6);
+  arr2[0] = "Kobe";
+  arr2[1] = "James";
+  arr2[2] = "Davis";
+  arr2[3] = "Gaso";
+  arr2[4] = "Kuzma";
+  arr2[5] = "Fisher";
+alert(arr2.slice(2,4));
+document.write(arr2);
+```
+
+8.sort\(\)：对数组元素进行排序，参数可选规定排序顺序，必须是函数，没有参数时按照字母编码顺序进行排序，如果打算按照其他准则进行排序就需要提供比较函数，该函数要比较两个值，然后返回一个用于说明两个值相对顺序的数字。返回值为对数组的引用，数组在原数组上进行排序，不生成新副本
+
+```
+var arr2 = new Array(6);
+        arr2[0] = "Kobe";
+        arr2[1] = "James";
+        arr2[2] = "Davis";
+        arr2[3] = "Gaso";
+        arr2[4] = "Kuzma";
+        arr2[5] = "Fisher";
+document.write(arr2.sort() + "<br />");
+function sortNum(a,b) {
+   return a - b  //升序为a-b，降序为b-a
+};
+var arr3 = new Array(6);
+        arr3[0] = "10";
+        arr3[1] = "5";
+        arr3[2] = "40";
+        arr3[3] = "25";
+        arr3[4] = "1000";
+        arr3[5] = "1";
+document.write(arr3.sort(sortNum) + "<br />");
+```
+
 
 
