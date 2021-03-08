@@ -121,5 +121,19 @@ var arr3 = new Array(6);
 document.write(arr3.sort(sortNum) + "<br />");
 ```
 
+9.splice\(\)：向/从数组中添加/删除，然后返回被删除的项目（**会改变原始数组**），arrayObject.splice\(index,howmany,item1,....,itemX\)，参数中index：为规定添加/删除项目的位置，使用负数可以从数组结尾处规定位置（必须，整数），howmany：需要删除的项目数量（必填，若为0则不删除），item1,...,itemX：向数组添加新的项目（可选）
+
+```
+var arr2 = new Array(6);
+    arr2[0] = "Kobe";
+    arr2[1] = "James";
+    arr2[2] = "Davis";
+    arr2[3] = "Gaso";
+    arr2[4] = "Kuzma";
+    arr2[5] = "Fisher";
+    arr2.splice(2,0,"Willian")
+document.write(arr2 + "<br />");
+```
+
 
 
