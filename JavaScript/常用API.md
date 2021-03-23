@@ -72,7 +72,7 @@ doucument.write(arr1);
 var arr = [1,2,3,4,5];
 arr.push(6,7,8,9);
 console.log(arr.unshift("01","02","00"));
-console.log(arr);        
+console.log(arr);
 ```
 
 6.shift\(\)：把数组的第一个元素删除  **修改数组**，并**返回第一个元素的值**（数组原来的第一个元素，即被删除的元素），如果数组是空的，那么shift方法不进行任何操作，返回undefined
@@ -186,6 +186,55 @@ function countSymbols(string){
 console.log(Array.of(1,2,3));  //[1,2,3]
 console.log(Array.of(undefined));  //[undefined]
 console.log(Array.of());  // [] 无参时返回空数组
+```
+
+3.copyWithin\(\),将指定位置的成员复制到其他位置（会覆盖原有成员）**返回该组 **接受三个参数：target（必填）从该位置开始替换数据；start（可选）从该位置开始读取数据默认为0；end（可选）到该位置停止读取数据默认等于数组长度
+
+```
+let arr = [1,2,3,4,5,6,7,8,9];
+arr.copyWithin(0,3,6);
+console.log(arr) //[4,5,6,4,5,6,7,8,9]
+```
+
+4.find\(\),找出第一个符合条件的数组成员，**返回该成员，若无则返回undefined**
+
+```
+let arr = [1,5,10,15];
+let num = arr.find(value => return value > 9);  // 10
+let num2 = arr.find(value => return value > 20); //undefined
+```
+
+5.findIndex\(\)，**返回第一个符合条件的数组成员的位置，若无则返回-1**
+
+```
+let arr = [1,5,10,15];
+let num = arr.findIndex(value => return value > 9);  // 2
+```
+
+6.fill\(\),填充一个数组，可接受第二个第三个参数用于指定起始位置和结束位置 **返回数组**
+
+```
+let arr = ['a','b','c'];
+console.log(arr.fill(1));  //[1,1,1]
+console.log(arr.fill(1,1,2))  //['a',1,'c']
+```
+
+7.keys\(\),遍历所有索引值 **返回字符串**
+
+```
+for(let index of ['a','b'].keys()) {console.log(index);}  //0,1
+```
+
+8.valueOf\(\),遍历所有值 **返回字符串**
+
+```
+for(let index of ['a','b'].valueOf()) {console.log(index);}  //a,b
+```
+
+9.entries\(\),遍历索引和值 **返回数组**
+
+```
+for(let index of ['a','b'].entries()) {console.log(index);}  //[0,"a"] [1,"b"]
 ```
 
 ## JS中常见的循环遍历：
