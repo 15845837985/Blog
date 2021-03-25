@@ -1,4 +1,4 @@
-# js常用API
+# js数组常用API
 
 ## Array：
 
