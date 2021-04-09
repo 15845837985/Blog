@@ -412,8 +412,8 @@ Uncaught TypeError: bar is not a function
 
 #### 闭包/作用域 call apply bind
 
-1. 如果一个函数调用了函数作用域外的一个变量，那么这个函数和变量就统称为闭包
-2. call和apply方法类似，区别就是call\(\)方法接受的是参数列表，apply\(\)方法接受的是一个参数数组。bind\(\)方法与call\(\)类似，但是是创建一个新的函数。
+1. 如果一个函数调用了函数作用域外的一个变量，那么这个函数和变量就统称为闭包    闭包的作用：1.希望一个变量长期驻扎在内存中，2.避免全局污染，3.可以在循环中找到对应元素的索引 不需要再添加索引
+2. call和apply方法类似，区别就是call\(\)方法接受的是参数列表，apply\(\)方法接受的是一个参数数组。bind\(\)方法与call\(\)类似，但是是创建一个新的函数。call和apply方法都是立即调用，而bind方法需要手动调用。
 
 ```
 var m = {
@@ -440,7 +440,7 @@ NaN
 2. String，Array，Boolean，Object都可以理解为构造函数，而JavaScript中Function 类型有一个属性 prototype，直接翻译过来就是原型。这个属性就是一个指针，指向一个对象，这个对象包含一些属性和方法，这些属性和方法会被当前函数生成的所有实例（对象）所共享。普通对象有个不规范的“原型”对象，在chrome和Firefox中以 
    **proto**
    表示，本文暂时称为隐式原型。 每个函数对象都有一个 prototype 对象，即为原型。原型也有隐式原型指向Object的原型即Object.prototype。而函数对象本身的隐式原型则都指向Function.prototype。
-3. 重要公式   
+3. 重要公式  
    `var 对象 = new 函数() 对象.__proto__ === 对象的构造函数.protoytpe`
 
    推导：
@@ -458,7 +458,6 @@ var function = new Function()
 function.__proto__ = Function.prototype
 Function.__proto__ == Function.prototye // 因为 Function 是 Function 的实例！
 Function.prototye.__proto__ = Object.prototype//Function.prototye是个对象
-
 ```
 
 
