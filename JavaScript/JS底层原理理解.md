@@ -339,12 +339,14 @@ var obj = {
 const clone = await structuralClone(obj);
 ```
 
-# 事件执行
+### JavaScript运行机制及原理：
+
+#### 事件执行
 
 1. 单线程，同一个时间只能做一件事
 2. 任务分为同步和异步，于是运行机制可以简单理解成一个主线程（执行栈）和一个任务队列，主线程运行完成之后，再从任务队列中读取事件运行。这个过程循环不断，又称Event Loop
 
-# 变量/函数的预解析
+#### 变量/函数的预解析
 
 1. JavaScript会对基础类型的变量进行预解析（变量提升），对函数声明（不包括函数）进行预加载。
 2. 对于变量的定义，无论是否存在逻辑判断，JavaScript都会进行预解析，而对于函数声明，JavaScript并不会对逻辑判断中的进行预加载，只会对函数主体中暴露的进行预加载。
@@ -388,145 +390,43 @@ foo
 Uncaught TypeError: bar is not a function
 ```
 
-# JavaScript 预加载顺序
+#### JavaScript 预加载顺序
 
 1. 首先会对所有声明前置（变量提升）
 2. 函数的参数，如果有参数直接赋值
- 
-    3.函数内部的函数声明，如果有则前置，如果函数名与参数重复则覆盖掉参数
+
+   3.函数内部的函数声明，如果有则前置，如果函数名与参数重复则覆盖掉参数
+
 3. 函数内部的变量声明，如果有则前置，如果变量名与 函数声明重复 会忽略该变量声明，只是忽略声明 赋值语句仍有效
 
 ```
-!
-function
-(
-x
-,
-y
-)
-{
-alert
-(
-x
-)
-;
-//function
-alert
-(
-y
-)
-;
-//2
-var
- x 
-=
-10
-,
-y
-=
-20
-;
-function
-x
-(
-)
-{
-}
-alert
-(
-x
-)
-;
-//10
-alert
-(
-y
-)
-;
-//20
-}
-(
-2
-,
-2
-)
+!function(x,y){
+    alert(x); //function
+    alert(y); //2
+    var x = 10,y=20;
+    function x(){}
+    alert(x); //10
+    alert(y);  //20
+}(2,2)
 ```
 
-# 闭包/作用域 call apply bind
+#### 闭包/作用域 call apply bind
 
 1. 如果一个函数调用了函数作用域外的一个变量，那么这个函数和变量就统称为闭包
 2. call和apply方法类似，区别就是call\(\)方法接受的是参数列表，apply\(\)方法接受的是一个参数数组。bind\(\)方法与call\(\)类似，但是是创建一个新的函数。
 
 ```
-var
- m 
-=
-{
-"x"
-:
-1
+var m = {
+    "x" : 1
+};
+function foo(y) {
+    console.log(this.x + y);
 }
-;
-function
-foo
-(
-y
-)
-{
-
-    console
-.
-log
-(
-this
-.
-x 
-+
- y
-)
-;
-}
-foo
-(
-5
-)
-;
-foo
-.
-apply
-(
-m
-,
-[
-5
-]
-)
-;
-foo
-.
-call
-(
-m
-,
-5
-)
-;
-var
- foo1 
-=
-foo
-.
-bind
-(
-m
-,
-5
-)
-;
-foo1
-(
-)
-;
+foo(5);
+foo.apply(m, [5]);
+foo.call(m, 5);
+var foo1 = foo.bind(m, 5);
+foo1();
 //输出结果
 NaN
 6
@@ -534,98 +434,31 @@ NaN
 6
 ```
 
-# JavaScript 原型理解
+#### JavaScript 原型理解
 
 1. undefined，null，boolean，string，number五种基本类型，一种复杂类型object。
 2. String，Array，Boolean，Object都可以理解为构造函数，而JavaScript中Function 类型有一个属性 prototype，直接翻译过来就是原型。这个属性就是一个指针，指向一个对象，这个对象包含一些属性和方法，这些属性和方法会被当前函数生成的所有实例（对象）所共享。普通对象有个不规范的“原型”对象，在chrome和Firefox中以 
    **proto**
    表示，本文暂时称为隐式原型。 每个函数对象都有一个 prototype 对象，即为原型。原型也有隐式原型指向Object的原型即Object.prototype。而函数对象本身的隐式原型则都指向Function.prototype。
-3. 重要公式 
+3. 重要公式   
    `var 对象 = new 函数() 对象.__proto__ === 对象的构造函数.protoytpe`
- 
-    推导：
+
+   推导：
 
 ```
-var
- number 
-=
-new
-Number
-(
-)
+var number = new Number()
+number.__proto__ = Number.prototype
+Number.__proto__ = Function.prototype // 因为 Number 是 Function 的实例
 
-number
-.
-__proto__ 
-=
- Number
-.
-prototype
-Number
-.
-__proto__ 
-=
- Function
-.
-prototype 
-// 因为 Number 是 Function 的实例
-var
- object 
-=
-new
-Object
-(
-)
+var object = new Object()
+object.__proto__ = Object.prototype
+Object.__proto__ = Function.prototype // 因为 Object 是 Function 的实例
 
-object
-.
-__proto__ 
-=
- Object
-.
-prototype
-Object
-.
-__proto__ 
-=
- Function
-.
-prototype 
-// 因为 Object 是 Function 的实例
-var
- function 
-=
-new
-Function
-(
-)
+var function = new Function()
+function.__proto__ = Function.prototype
+Function.__proto__ == Function.prototye // 因为 Function 是 Function 的实例！
+Function.prototye.__proto__ = Object.prototype//Function.prototye是个对象
 
-function
-.
-__proto__ 
-=
- Function
-.
-prototype
-Function
-.
-__proto__ 
-==
- Function
-.
-prototye 
-// 因为 Function 是 Function 的实例！
-
-Function
-.
-prototye
-.
-__proto__ 
-=
- Object
-.
-prototype
-//Function.prototye是个对象
 ```
 
 
